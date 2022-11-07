@@ -1,0 +1,331 @@
+﻿
+@{
+    User currentUser = Context.Session.Get<User>(Constants.CURRENT_USER);
+    string img = "0";
+    if (currentUser.Image != null)
+    {
+        img = Convert.ToBase64String(currentUser.Image);
+    }
+
+    List<EVS373.PakClassified.AdvertizementCategory> cats = (List<EVS373.PakClassified.AdvertizementCategory>)ViewData["Categories"];
+    List<EVS373.PakClassified.AdvertizementCategory> subcats = (List<EVS373.PakClassified.AdvertizementCategory>)ViewData["SubCategories"];
+}
+<!DOCTYPE html>
+<style>
+    #mynav {
+        background: none;
+    }
+
+    #advdetail.modal.fade.show {
+        background: black;
+        opacity: 0.8;
+    }
+</style>
+<html>
+<head>
+    <title>PakClassified - @ViewData["Title"]</title>
+
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/themify-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/style.css" type="text/css">
+
+    @RenderSection("pagecss", false)
+
+</head>
+
+<body>
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+    <header class="header-section">
+        <div class="header-top">
+            <div class="container">
+                <div class="ht-left">
+                    <div class="mail-service">
+                        <i class=" fa fa-envelope"></i>
+                        @currentUser.Email
+                    </div>
+                    <div class="phone-service">
+                        <i class=" fa fa-phone"></i>
+                        @currentUser.ContactNumber
+                    </div>
+                </div>
+                <div class="ht-right">
+                    @if (currentUser == null)
+                    {
+                        <a asp-controller="users" asp-action="login" class="login-panel"><i class="fa fa-user"></i>Login</a>
+                        <a class="login-panel" asp-controller="users" asp-action="signup"> <i class="fa fa-user"></i> Sign Up </a>
+                    }
+                    else
+                    {
+
+                        <div id="mynav" class="nav-item">
+                            <div class="container">
+                                <div class="nav-depart">
+                                    <div class="depart-btn">
+                                        <i class="ti-menu"></i>
+                                        <span>@currentUser.Name</span>
+                                        <ul class="depart-hover">
+
+                                            <li class="">
+                                                <img src="data:image/jpg;base64,@img" class="w-100" alt="ali" />
+                                            </li>
+
+                                            <li><a asp-controller="users" asp-action="profile" ><i class="fa fa-user"></i>Profile</a></li>                                           
+                                            <li><a asp-controller="users" asp-action="logout"> <i class="fa fa-sign-out"></i>Sign Out</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+                    }
+
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="inner-header">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2">
+                        <div class="logo">
+                            <a asp-controller="home" asp-action="index">
+                                <img src="/./img/logo.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        <form asp-action="Search" asp-controller="search" method="post" style="padding-top:15px">
+                            <div class="advanced-search">
+                                <div class="input-group">
+                                    <input class="form-control" name="search" type="text" placeholder="What do you need?">
+                                    <button type="submit"><i class="ti-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-item">
+            <div class="container">
+                <div class="nav-depart">
+                    <div class="depart-btn">
+                        <i class="ti-menu"></i>
+                        <span>All Categories</span>
+                        <ul class="depart-hover">
+                            @foreach (var item in cats)
+                            {
+                                <li><a asp-controller="Home" asp-action="Nav" asp-route-cname="@item.Name">@item.Name</a></li>
+                            }
+                           
+                        </ul>
+                    </div>
+                </div>
+                <nav class="nav-menu mobile-menu">
+                    <ul>
+                        <li class="active"><a asp-controller="home" asp-action="index">Home</a></li>
+                        <li><a asp-controller="home" asp-action="nav">Shop</a></li>                       
+                        <li style="width:250px"></li>
+                        <li style=" border-left: 2px solid #3b3b3b;" class="ml-5"><a id="lnkpostadv" asp-action="postadv" asp-controller="advertizements">Post</a></li>
+
+                    </ul>
+                </nav>
+                <div id="mobile-menu-wrap"></div>
+            </div>
+        </div>
+    </header>
+    <!-- Header End -->
+    <!-- main content area -->
+
+
+    @RenderBody()
+
+
+    <!-- Footer Section Begin -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="footer-left">
+                        <div class="footer-logo">
+                            <a href="#"><img src="/./img/logo.png" alt=""></a>
+                        </div>
+                        <ul>
+                            <li>Address: Lahore, Pakistan</li>
+                            <li>Phone:+92-1234567</li>
+                            <li>Email: admin@pakclassifieds.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="footer-widget">
+                        <h5>My Account</h5>
+                        <ul>
+                            <li><a asp-controller="users" asp-action="profile">My Account</a></li>
+                            <li><a asp-controller="home" asp-action="nav">Advertisements</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-reserved">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="copyright-text">
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> All rights reserved | Ali Shahzaib
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Footer Section End -->
+    <div class="modal fade" id="advdialog" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 id="advdialog-title" class="modal-title">Post Advertizement</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div id="advdialog-body" class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="advdetail" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title">Ad Details</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div id="detail-body" class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery-ui.min.js"></script>
+    <script src="~/js/jquery.countdown.min.js"></script>
+    <script src="~/js/jquery.nice-select.min.js"></script>
+    <script src="~/js/jquery.zoom.min.js"></script>
+    <script src="~/js/jquery.dd.min.js"></script>
+    <script src="~/js/jquery.slicknav.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/main.js"></script>
+
+    <script>
+        $("#lnkpostadv").click(function (event) {
+            event.preventDefault();
+            var url = $(this).attr("href");
+            $.ajax(
+                {
+                    url: url
+                }
+            ).done(function (postadvform) {
+                $("#advdialog-body").html(postadvform);
+                $("#advdialog").modal();
+
+                $("#countriesddl").change(function () {
+                    var countryId = $(this).val();
+                    $.ajax(
+                        {
+                            url: "/home/citiesddl/" + countryId
+                        }
+                    ).done(function (citiesresult) {
+                        $("#div4cities").html(citiesresult);
+                    });
+                });
+
+                $("#categoriesddl").change(function () {
+                    var categoryId = $(this).val();
+                    $.ajax(
+                        {
+                            url: "/home/subcategoriesddl/" + categoryId
+                        }
+                    ).done(function (subcategoriesresult) {
+                        $("#div4subcategories").html(subcategoriesresult);
+                    });
+                });
+
+                var phcounter = 0;
+                //add and remove controls for images
+                $("#btnphadd").click(function () {
+                    phcounter++;
+                    var temp = "<tr class='photorow d-flex'>"
+                        + "<td class='col-5'>"
+                        + "<input name='phcaption" + phcounter + "' type='text' class='form-control' placeholder='Caption' />"
+                        + "</td>"
+                        + "<td class='col-6'>"
+                        + "    <input name='photo" + phcounter + "' type='file' />"
+                        + "</td>"
+                        + "<td class='col-1' style='text-align:right' >"
+                        + "    <button type='button' class='btn btn-danger btn-sm btn-phremove'> <i class='fa fa-trash'></i></button>"
+                        + "</td>"
+                        + "</tr>";
+                    $("#phtablbody").append(temp);
+                    $(".btn-phremove").click(function () {
+                        $(this).parents(".photorow").remove();
+                    });
+                });
+
+            });
+        });
+    </script>
+
+    <script>
+        $(function () {
+            $(".myquick").click(function () {
+                var el = $(this);
+                var adid = el.data('index');
+                $.ajax({
+                    url: "/Advertizements/details/" + adid
+                }).done(function (response) {
+                    $("#detail-body").html(response);
+                    $("#advdetail").modal({ show: true });
+                });
+            });
+        });
+    </script>
+
+
+    @RenderSection("pagescript", false)
+</body>
+</html>

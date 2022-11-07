@@ -1,0 +1,95 @@
+﻿@{ 
+    User currentUser = Context.Session.Get<User>(Constants.CURRENT_USER);
+}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>PakClassified - @ViewData["Title"]</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="~/css/evs.css" rel="stylesheet" />
+    @RenderSection("pagecss",false)
+</head>
+
+<body>
+    <!-- To NavBar -->
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <i class="fa fa-tags"></i>  PakClassified
+        </a>
+    </nav>
+
+    <main class="container-fluid">
+        <div style="margin:15px 0px;">
+            <div class="row">
+                <!-- Left Navigation -->
+                <div id="leftnav" class="col-xl-3 col-lg-3 col-md-4 d-md-block d-none">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-3">
+                                    <img src="~/images/others/user.png" alt="user" class="w-100 rounded-circle" />
+                                </div>
+                                <div class="col-9">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div><strong>@currentUser.Name</strong></div>
+                                            <div>@currentUser.Role.Name</div>
+                                        </div>
+                                        <div class="col-4" >
+                                            <a asp-action="logout" asp-controller="users">
+                                                <i class="fa fa-power-off"></i>
+                                            </a>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <a asp-controller="countries" asp-action="manage">Countries</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a asp-controller="provinces" asp-action="manage">Provinces</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a asp-controller="cities" asp-action="manage">Cities</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a asp-controller="categories" asp-action="manage">Categories</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a asp-controller="subcategories" asp-action="manage">Sub Categories</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a asp-controller="advertizements" asp-action="manage">Advertizements</a>
+                            </li>
+
+                            <li class="list-group-item">Settings</li>
+                        </ul>
+                    </div>
+                    <div style="margin:30px 0px;">
+                        @RenderSection("impcontent",false)
+                    </div>
+                </div>
+
+                <!-- Right Sec for Main Content -->
+                <div class="col-xl-9 col-lg-9 col-md-8 col-sm-12 col-xs-12">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/evs.js"></script>
+    @RenderSection("pagescript",false)
+</body>
+
+</html>

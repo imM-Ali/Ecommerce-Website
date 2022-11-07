@@ -1,0 +1,72 @@
+﻿@using Microsoft.AspNetCore.Http
+@{ 
+    UserModel user = (UserModel)ViewData["currentuser"];
+    string img = (String)ViewData["img"];
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>PakClassified - @ViewData["Title"]</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="~/css/evs.css" rel="stylesheet" />
+    @RenderSection("pagecss", false)
+
+</head>
+<body>
+
+    <!-- top nav bar -->
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <i class="fa fa-tags"></i>  PakClassified
+        </a>
+        @if (user != null)
+        {
+    <ul class="navbar-nav my-2 my-lg-0 ml-auto">                  
+                
+                   <li class="nav-item dropleft">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user"></i> @user.LoginId </a>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item">
+                        <div class="">
+                            <img src="data:image/jpg;base64,@img" class="w-100" alt="ali" />
+                        </div>
+                    </div>
+                    <a class="dropdown-item" asp-controller="users" asp-action="profile"><i class="fa fa-user"></i>  Profile </a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-key"></i>  Change Password </a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="users" asp-action="logout"> <i class="fa fa-sign-out"></i> Sign Out </a>
+            </li>
+        
+    </ul>
+        }
+        else
+        {<a class="ml-auto" asp-controller="users" asp-action="Signup"> <i class="fa fa-user-alt"></i> Sign Up </a>
+            <a class="nav-link" asp-controller="users" asp-action="login"> <i class="fa fa-sign-in"></i> Login </a>
+        }
+
+    </nav>
+
+    <!-- main content area -->
+    <main>
+        <div class="container-fluid">
+            <div class="mt-3">
+                @RenderBody()
+            </div>
+        </div>
+    </main>
+
+  
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/evs.js"></script>
+    @RenderSection("pagescript", false)
+</body>
+</html>

@@ -1,0 +1,75 @@
+.evs-hideable{
+  padding: 10px;  
+}
+
+.evs-hideable-header{
+  padding: 5px;
+  background-color: #eaeaea;
+}
+
+.evs-hideable-body{
+  padding: 5px;
+}
+
+.evs-control-error{
+  border: solid 1px #ff0000;
+}
+
+.evs-control-valid{
+  border: solid 1px #00ff00;
+}
+
+
+.mytab-pane {
+    border-left: solid 1px #eaeaea;
+    border-right: solid 1px #eaeaea;
+    border-bottom: solid 1px #eaeaea;
+    padding: 15px;
+}
+
+
+
+
+
+
+.style1 {
+    background-color: black;
+    color: white;
+    padding: 15px;
+  }
+
+
+  .error{
+    background-color: red;
+    color: white;
+  }
+
+  .success{
+    background-color: yellowgreen;
+    color: white;
+  }
+
+  
+  @media (min-width: 576px) {
+    .style1 {
+        background-color: red;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .style1 {
+        background-color: navy;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .style1 {
+        background-color: magenta;
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .style1 {
+        background-color: yellowgreen;
+    }
+  }

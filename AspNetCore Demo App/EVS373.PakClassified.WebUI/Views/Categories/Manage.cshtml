@@ -1,0 +1,98 @@
+﻿@model IEnumerable<EVS373.PakClassified.WebUI.Models.AdvertizementCategoryModel>
+
+@{
+    Layout = "~/Views/shared/_adminlayout.cshtml";
+    ViewData["Title"] = "Manage Categories";
+}
+
+
+<div class="modal fade" id="mydialog" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 id="mydialog-title" class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div id="mydialog-body" class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="card">
+    <div class="card-header bg-primary text-white"><strong>@ViewData["Title"]</strong> <a id="lnkcreate" href="#" class="text-white">[ Add New ]</a></div>
+    <div class="card-body">
+        <table class="table table-sm">
+            <thead>
+                <tr class="d-flex">
+                    <th class="col-5">Name</th>
+                    <th class="col-2">Parent</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in Model)
+                {
+                    <tr class="d-flex">
+                        <td class="col-5">@m.Name</td>
+                        <td class="col-2">-</td>
+                        <td class="col-5">
+                            <a class="btn btn-sm btn-warning dgbtn-edit" asp-controller="categories" asp-action="edit" asp-route-id="@m.Id"> <i class="fa fa-edit"></i></a>
+                            <a class="btn btn-sm btn-danger text-white dgbtn-delete" asp-controller="categories" asp-action="delete" asp-route-id="@m.Id"> <i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section pagescript{
+    <script>
+            
+
+        $("#lnkcreate").click(function (event) {
+            event.preventDefault();
+            $.ajax(
+                {
+                    url: "/categories/create"
+                }
+            ).done(function (createform) {
+                $("#mydialog-title").html("Add Category");
+                $("#mydialog-body").html(createform);
+                $("#mydialog").modal();
+            });
+        });
+
+        $(".dgbtn-delete").click(function (event) {
+            event.preventDefault();
+            let delurl = $(this).attr("href");
+            $.ajax(
+                {
+                    url: delurl
+                }
+            ).done(function (deleteform) {
+                $("#mydialog-title").html("Do you want to delete this record?");
+                $("#mydialog-body").html(deleteform);
+                $("#mydialog").modal();
+            });
+        });
+
+
+        $(".dgbtn-edit").click(function (event) {
+            event.preventDefault();
+            let editurl = $(this).attr("href");
+            $.ajax(
+                {
+                    url: editurl
+                }
+            ).done(function (editform) {
+                $("#mydialog-title").html("Edit Category");
+                $("#mydialog-body").html(editform);
+                $("#mydialog").modal();
+            });
+        });
+
+    </script>
+}

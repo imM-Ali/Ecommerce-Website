@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Http
+@{
+    User currentUser = Context.Session.Get<User>(Constants.CURRENT_USER);
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>PakClassified - @ViewData["Title"]</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="~/css/evs.css" rel="stylesheet" />
+
+    @RenderSection("pagecss", false)
+
+</head>
+<body>
+
+    <!-- main content area -->
+    <main>
+        
+                @RenderBody()
+            
+    </main>
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/evs.js"></script>
+    @RenderSection("pagescript", false)
+</body>
+</html>

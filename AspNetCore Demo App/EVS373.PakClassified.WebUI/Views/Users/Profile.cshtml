@@ -1,0 +1,293 @@
+﻿@model UserModel
+
+@{
+    Layout = "~/Views/Shared/_OthersLayout.cshtml";
+    string img = Convert.ToString(ViewData["image"]);
+}
+@{
+
+}
+<style>
+
+    .myimg {
+        object-fit: cover;
+        height: 350px;
+        margin-left: 6px;
+    }
+
+    #team {
+        background: #eee !important;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus {
+        background-color: #108d6f;
+        border-color: #108d6f;
+        box-shadow: none;
+        outline: none;
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: #007b5e;
+        border-color: #007b5e;
+    }
+
+    section {
+        padding: 60px 0;
+    }
+
+        section .section-title {
+            text-align: center;
+            color: #007b5e;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+        }
+
+    #team .card {
+        border: none;
+        background: #ffffff;
+    }
+
+    .image-flip:hover .backside,
+    .image-flip.hover .backside {
+        -webkit-transform: rotateY(0deg);
+        -moz-transform: rotateY(0deg);
+        -o-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+        border-radius: .25rem;
+    }
+
+    .image-flip:hover .frontside,
+    .image-flip.hover .frontside {
+        -webkit-transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+    }
+
+    .mainflip {
+        -webkit-transition: 1s;
+        -webkit-transform-style: preserve-3d;
+        -ms-transition: 1s;
+        -moz-transition: 1s;
+        -moz-transform: perspective(1000px);
+        -moz-transform-style: preserve-3d;
+        -ms-transform-style: preserve-3d;
+        transition: 1s;
+        transform-style: preserve-3d;
+        position: relative;
+    }
+
+    .frontside {
+        position: relative;
+        -webkit-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        z-index: 2;
+        margin-bottom: 30px;
+    }
+
+    .backside {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: white;
+        -webkit-transform: rotateY(-180deg);
+        -moz-transform: rotateY(-180deg);
+        -o-transform: rotateY(-180deg);
+        -ms-transform: rotateY(-180deg);
+        transform: rotateY(-180deg);
+        -webkit-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+        -moz-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+        box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+    }
+
+    .frontside,
+    .backside {
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        -ms-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transition: 1s;
+        -webkit-transform-style: preserve-3d;
+        -moz-transition: 1s;
+        -moz-transform-style: preserve-3d;
+        -o-transition: 1s;
+        -o-transform-style: preserve-3d;
+        -ms-transition: 1s;
+        -ms-transform-style: preserve-3d;
+        transition: 1s;
+        transform-style: preserve-3d;
+    }
+
+        .frontside .card,
+        .backside .card {
+            min-height: 312px;
+        }
+
+            .backside .card a {
+                font-size: 18px;
+                color: #007b5e !important;
+            }
+
+            .frontside .card .card-title,
+            .backside .card .card-title {
+                color: #007b5e !important;
+            }
+
+            .frontside .card .card-body img {
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+            }
+</style>
+
+
+
+
+
+
+
+
+@*ORIGINAAL PAGE BELOW THIS*@
+<div class="modal fade" id="mydialog" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 id="mydialog-title" class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div id="mydialog-body" class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+
+    <div class="col-xs-3 col-lg-3 col-md-3 d-block">
+        <div class="image-flip" style="position:absolute; top:22%; left:20%; width:-webkit-fill-available">
+            <div class="mainflip flip-0">
+                <div class="frontside">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <p><img class=" img-fluid" src="data:image/jpg;base64,@img" alt="card image"></p>
+                            <h4 class="card-title">@Model.Name</h4>
+                            <div class="card-body">
+                                <p class="card-text">@Model.ContactNumber</p>
+                                <p class="card-text">@Model.Email</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="backside">
+                    <div class="card">
+                        <div class="card-body text-center mt-0" style="padding:0px;">
+                            <img src="data:image/jpg;base64,@img" class="card-img card-img-top" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+     
+    </div>
+
+    <div class="col-7 offset-1" style="margin-bottom:110px">
+        <div style="border-bottom:groove">
+            <input type="hidden" asp-for="@Model.Id" />
+            <h3 style="font-weight:bold; text-align:center; margin-top:110px;margin-bottom:40px; text-decoration:underline">User Information</h3>
+            <a asp-controller="users" asp-action="edituser" class="btn btn-danger btn-sm text-white" style="margin-bottom:5px">Edit</a>
+            <a asp-controller="users" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-info btn-sm text-white dgbtn-delete" style="margin-bottom:5px">Delete</a>
+        </div>
+        <table id="productSizes" class="table">
+            <tbody>
+                <tr class="d-flex">
+                    <th class="col-6">
+                        <label>Name</label>
+                    </th>
+                    <td class="col-6">
+                        @Model.Name
+                    </td>
+
+                </tr>
+
+                <tr class="d-flex">
+                    <th class="col-6">
+                        <label>Contact Number</label>
+                    </th>
+                    <td class="col-6">
+                        @Model.ContactNumber
+                    </td>
+
+                </tr>
+                <tr class="d-flex">
+                    <th class="col-6">
+                        <label>Email ID</label>
+                    </th>
+
+                    <td class="col-6">
+                        @Model.Email
+                    </td>
+
+                </tr>
+                <tr class="d-flex">
+                    <th class="col-6">
+                        <label>Birth Date</label>
+                    </th>
+                    @if (Model.BirthDate != null)
+                        {
+                    <td class="col-6">
+                        @Model.BirthDate
+                    </td>
+                        }
+                        else
+                        {
+                    <td class="col-6">
+                        NOT FOUND
+                    </td>
+                        }
+
+                </tr>
+
+            </tbody>
+        </table>
+
+
+    </div>
+
+
+
+
+</div>
+
+@section pagescript{
+    <script>
+        $(".dgbtn-delete").click(function (event) {
+            event.preventDefault();
+            let delurl = $(this).attr("href");
+            $.ajax(
+                {
+                    url: delurl
+                }
+            ).done(function (deleteform) {
+                $("#mydialog-title").html("Do you want to delete your profile?");
+                $("#mydialog-body").html(deleteform);
+                $("#mydialog").modal();
+            });
+        });
+
+    </script>
+
+    }
+
+
+
+
+
+
+

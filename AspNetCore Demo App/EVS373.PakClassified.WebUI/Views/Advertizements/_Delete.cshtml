@@ -1,0 +1,17 @@
+﻿@model AdvertizementModel
+
+<form asp-controller="advertizements" asp-action="delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <div class="row">
+            <div class="col-4">Name:</div>
+            <div class="col-8"><strong>@Model.Name</strong> </div>
+        </div>
+    </div>
+    <img class=" img-fluid" src="data:image/jpg;base64,@Model.Images.First()" alt="card image">
+    <div class="form-group">
+        <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Yes </button>
+        <button type="button" class="btn btn-outline-danger" data-dismiss="modal" ><i class="fa fa-backward"></i>  Cancel</button>
+    </div>
+</form>
+

@@ -1,0 +1,56 @@
+﻿@model EVS373.PakClassified.WebUI.Models.AdvertizementModel
+
+@{
+    
+    var name = ViewBag.postedby as string;
+    List<AdvertizementModel> mylist = (List<AdvertizementModel>)ViewData["list"];
+}
+
+
+<!DOCTYPE html>
+<style>
+    
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: aliceblue;        
+        text-align: center;
+    }
+    #hover{
+        color: black;
+    }
+    #hover:hover{
+        color: darkslategrey;
+    }
+</style>
+<body style="background-color:black">   
+    <div class="row" style="min-height: 400px; max-height: 400px;">
+
+
+        <div class="col-6">
+            @if (Model.Images.Count > 0)
+            {
+                <img src="data:image/jpg;base64,@Model.Images.First()" class="card-img card-img-top" style="height:100%;max-height: -webkit-fill-available; object-fit: contain" alt="@Model.Name" />
+            }
+            else
+            {
+                <img src="~/images/others/adv_none.jpg" class="card-img card-img-top" alt="adv" />
+            }
+        </div>
+        <div class="col-6">
+            <h4 style="margin-top:70px; font-variant:all-small-caps">Title:</h4>
+            <h5 style="font-family: fantasy; font-size: large; text-transform:uppercase">@Model.Name</h5>
+            <h4 style=" font-variant: all-small-caps">Description:</h4>
+            <h5 style="font-family: fantasy; font-size: large;">@Model.Description</h5>
+            <h4 style=" font-variant: all-small-caps">Price:</h4>
+            <h5 style="font-family: fantasy; font-size: large;"><i class="fas fa-comment-dollar"></i> @Model.Price</h5>
+            <h4 style=" font-variant: all-small-caps">Posted by user:</h4>
+            <h5 style="font-family: fantasy; font-size: large;">@name</h5>
+
+        </div>
+
+    </div>
+   
+</body>

@@ -1,0 +1,13 @@
+[0710/015255.980:ERROR:settings.cc(320)] Settings magic is not 1129342067
+[0710/025908.662:INFO:CONSOLE(143)] "Uncaught ReferenceError: $ is not defined", source: file:///C:/Users/Ali/Desktop/test%20-%20Copy/AspNetCore%20Demo%20App/EVS373.PakClassified.WebUI/Views/Shared/_OthersLayout.cshtml (143)
+[0710/025908.663:ERROR:viz_main_impl.cc(170)] Exiting GPU process due to errors during initialization
+[0710/025908.675:WARNING:gpu_process_host.cc(1205)] The GPU process has crashed 1 time(s)
+[0710/025908.842:ERROR:viz_main_impl.cc(170)] Exiting GPU process due to errors during initialization
+[0710/025908.856:WARNING:gpu_process_host.cc(1205)] The GPU process has crashed 2 time(s)
+[0710/025915.281:INFO:CONSOLE(143)] "Uncaught ReferenceError: $ is not defined", source: file:///C:/Users/Ali/Desktop/test%20-%20Copy/AspNetCore%20Demo%20App/EVS373.PakClassified.WebUI/Views/Shared/_OthersLayout.cshtml (143)
+[0710/025915.341:INFO:CONSOLE(143)] "Uncaught ReferenceError: $ is not defined", source: file:///C:/Users/Ali/Desktop/test%20-%20Copy/AspNetCore%20Demo%20App/EVS373.PakClassified.WebUI/Views/Shared/_OthersLayout.cshtml (143)
+[0710/202857.349:ERROR:viz_main_impl.cc(170)] Exiting GPU process due to errors during initialization
+[0710/202857.349:WARNING:gpu_process_host.cc(1205)] The GPU process has crashed 1 time(s)
+[0710/202857.474:INFO:CONSOLE(142)] "Uncaught ReferenceError: $ is not defined", source: file:///C:/Users/Ali/Desktop/test%20-%20Copy/AspNetCore%20Demo%20App/EVS373.PakClassified.WebUI/Views/Shared/_OthersLayout.cshtml (142)
+[0710/202857.508:ERROR:viz_main_impl.cc(170)] Exiting GPU process due to errors during initialization
+[0710/202857.518:WARNING:gpu_process_host.cc(1205)] The GPU process has crashed 2 time(s)

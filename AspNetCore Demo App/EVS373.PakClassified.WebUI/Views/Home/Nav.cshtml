@@ -1,0 +1,51 @@
+﻿@model EVS373.PakClassified.WebUI.Models.AdvertizementModel
+@{ 
+    Layout = "~/Views/Shared/_OthersLayout.cshtml";
+
+
+    string parent = (string)ViewData["Parent"];
+    string child = (string)ViewData["Child"];
+    List <EVS373.PakClassified.WebUI.Models.AdvertizementModel>  ads = (List<EVS373.PakClassified.WebUI.Models.AdvertizementModel>)ViewData["list"];
+
+
+
+
+}
+<style>
+    #myrow{
+        margin-left:25px;
+        margin-top:25px;
+        margin-bottom:50px;
+    }
+</style>
+    <div id="myrow" class="row">
+        <h4>Home --> @parent --> @child </h4>
+        </div>
+
+        <div class="row mt-3 ml-2 mr-2">
+            <div class="card-deck" style="width: -webkit-fill-available; min-height:350px">
+                @foreach (var adv in ads)
+                {
+
+                    <div class="advsum col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-3">
+                        <a asp-action="details" asp-controller="advertizements" asp-route-id="@adv.Id" class="lnk-advdetails" title="@adv.Name">
+
+
+                            <div id="adcard" class="card" style="min-height:100%; box-shadow:10px 10px black">
+                                <img class="card-img-top h-100" style="max-height: 20rem; object-fit:contain; border:1px groove; border-color:black" src="data:image/jpg;base64,@adv.Images.First()" alt="~/images/others/adv_none.jpg">
+                                <div class="card-body text-dark">
+                                    <h4 class="card-title fas fa-comment-dollar">@adv.Price</h4>
+                                    <p class="card-text text-truncate">@adv.Name</p>
+                                </div>
+                            </div>
+
+
+
+                        </a>
+                    </div>
+
+                }
+            </div>
+        </div>
+
+    

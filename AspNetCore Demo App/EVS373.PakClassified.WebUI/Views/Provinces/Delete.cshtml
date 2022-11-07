@@ -1,0 +1,22 @@
+﻿@model ProvinceModel
+
+<form asp-controller="provinces" asp-action="delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <div class="row">
+            <div class="col-4">Name:</div>
+            <div class="col-8"><strong>@Model.Name</strong> </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-4">Code:</div>
+            <div class="col-8"><strong>@Model.Country.Name</strong> </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Yes </button>
+        <button type="button" class="btn btn-outline-danger" data-dismiss="modal" ><i class="fa fa-backward"></i>  Cancel</button>
+    </div>
+</form>
+

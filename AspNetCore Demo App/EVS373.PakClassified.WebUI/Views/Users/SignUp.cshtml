@@ -1,0 +1,224 @@
+﻿@model EVS373.PakClassified.WebUI.Models.UserModel
+
+@{
+    
+    ViewData["Title"] = "SignUp";
+    Layout = "~/Views/Shared/_LayoutSignup.cshtml";
+}
+<style>
+    #content {
+        float: right;
+        width: 65%;
+    }
+
+    #navbar {
+        float: right;
+        width: 35%;
+    }
+    
+    .btn {
+        background: linear-gradient(60deg, #66bb6a, #43a047);
+    }
+
+    .btn i{
+        padding-left:3px;
+    }
+
+        .btn:hover {
+            
+            background: linear-gradient(60deg,#43a047,#66bb6a);
+        }
+
+            .btn:hover i {
+                padding-left: 5px;
+            }
+</style>
+
+
+<div id="container">
+
+    <div id="content" class="float-lg-right float-md-none ml-md-auto">
+
+        <div class="card" style="border: none; padding-top: 200px; padding-left: 100px; padding-right: 100px ">
+
+
+            <h3 class="text-center card-title pt-2 pb-2"> User Registeration</h3>
+            <form asp-action="SignUp" method="post" enctype="multipart/form-data">
+
+                
+                <div class="form-row pt-2">
+
+                    <div class="form-group col-6">
+                        <label asp-for="Name" class="control-label"></label>
+
+                        <input asp-for="Name" class="form-control" required oninvalid="this.setCustomValidity('Enter Your Name Here')"
+                               oninput="this.setCustomValidity('')" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-6">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" required oninvalid="this.setCustomValidity('Enter Email')"
+                               oninput="this.setCustomValidity('')" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label asp-for="LoginId" class="control-label"></label>
+                        <input asp-for="LoginId" class="form-control" required oninvalid="this.setCustomValidity('Enter Login ID')"
+                               oninput="this.setCustomValidity('')" />
+                        <span asp-validation-for="LoginId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-6">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input type="password" asp-for="Password" class="form-control" required oninvalid="this.setCustomValidity('Enter Password')"
+                               oninput="this.setCustomValidity('')" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label asp-for="SecurityQuestion" class="control-label"></label>
+                        <select id="sqddl" class="form-control" asp-for="SecurityQuestion" required oninvalid="this.setCustomValidity('Select Security Question')"
+                                oninput="this.setCustomValidity('')">
+                            <option value="">-Select Question-</option>
+                            <option value="Birth Place">Birth Place</option>
+                            <option value="First School">First School</option>
+                            <option value="Mothers Maiden Name">Mothers Maiden Name</option>
+
+                        </select>
+                        <span asp-validation-for="SecurityQuestion" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group col-6">
+                        <label asp-for="SecurityAnswer" class="control-label"></label>
+                        <input asp-for="SecurityAnswer" class="form-control" required oninvalid="this.setCustomValidity('Enter Security Answer')"
+                               oninput="this.setCustomValidity('')" />
+                        <span asp-validation-for="SecurityAnswer" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label asp-for="ContactNumber" class="control-label"></label>
+                        <input asp-for="ContactNumber" class="form-control" />
+                        <span asp-validation-for="ContactNumber" class="text-danger"></span>
+                    </div>
+
+                    <div id="images" class="tab-pane mytab-pane">
+                        <div class="form-group">
+                            <table class="table">                                
+                                <tbody id="phtablbodye">
+                                    <tr class="photorow d-flex">
+
+
+                                        <td class='col-5'>
+
+                                            <input name='phcaption" + phcounter + "' type='text' class='form-control' placeholder='Caption' />
+
+                                        </td>
+
+                                        <td class='col-6'>
+
+                                            <input name='photo" + phcounter + "' type='file' />
+
+                                        </td>
+
+                                        <td class='col-1' style='text-align:right'>
+                                            <button type='button' class='btn btn-danger btn-sm btn-phremove'> <i class='fa fa-trash'></i></button>
+
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-row pt-3">
+
+                    <div class="col-md-4">
+                        <button type="submit" class="btn">Sign Up<i id="jk" class="fa fa-chevron-right" role="status"></i> </button>
+                    </div>
+
+
+                </div>
+
+            </form>
+
+            <div class="form-row d-flex justify-content-start">
+
+                <div  class="col-md-4 "><i class="fa fa-arrow-circle-left mt-5 pt-5"></i> <a asp-action="Login">Back to Login</a></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="navbar" style="padding:0px" class="card-img-overlay d-lg-flex float-md-none d-md-none d-block">
+        <img src="~/images/ban1.jpg" class="card-img-top  img-fluid">
+    </div>
+    </div>
+
+@section pagescript{
+    <script>
+        $(function () {
+            $("#navbar").on('mouseover', function () {
+                $(this).css('opacity', 0.95);
+
+            });
+            $("#navbar").on('mouseleave', function () {
+                $(this).css('opacity', 1);
+
+            });
+            $('.btn').click(function () {
+                $("#jk").removeClass("fa fa-chevron-right");
+               $("#jk").addClass("spinner-border spinner-border-sm").delay(1000).queue(function(next){
+                $(this).removeClass("spinner-border spinner-border-sm");
+                   next();
+                    $("#jk").addClass("fa fa-chevron-right")
+            });
+
+            
+});
+
+        });
+        //var phcounter = 0;
+        ////add and remove controls for images
+        //$("#btnphadde").click(function () {
+        //    phcounter++;
+        //    var temp = "<tr class='photorow d-flex'>"
+        //        + "<td class='col-5'>"
+        //        + "<input name='phcaption" + phcounter + "' type='text' class='form-control' placeholder='Caption' />"
+        //        + "</td>"
+        //        + "<td class='col-6'>"
+        //        + "    <input  name='photo" + phcounter + "' type='file' />"
+        //        + "</td>"
+        //        + "<td class='col-1' style='text-align:right' >"
+        //        + "    <button type='button' class='btn btn-danger btn-sm btn-phremove'> <i class='fa fa-trash'></i></button>"
+        //        + "</td>"
+        //        + "</tr>";
+        //    $("#phtablbodye").append(temp);
+            $(".btn-phremove").click(function () {
+                $(this).parents(".photorow").remove();
+            });
+        });
+
+    </script>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

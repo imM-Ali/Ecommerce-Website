@@ -1,0 +1,80 @@
+﻿@model EVS373.PakClassified.WebUI.Models.UserModel
+@{
+    Layout = "~/Views/Shared/_OthersLayout.cshtml";
+    string query = Convert.ToString(ViewData["query"]);
+    List<EVS373.PakClassified.WebUI.Models.AdvertizementModel> ads = (List<EVS373.PakClassified.WebUI.Models.AdvertizementModel>)ViewData["LatestApprovedAds"];
+    var names = ViewBag.postedby as string[];
+    var topcats = ViewBag.topcats as string[];
+    var cats = ViewBag.cats as string[];
+    }
+    <div class="container">
+
+        <hgroup style="margin-top:50px;">
+            <h1>Search Results</h1>
+            <h2 class="lead"><strong class="text-danger">@ads.Count</strong> results were found for the search for <strong class="text-danger">@query</strong></h2>
+        </hgroup>
+        @for (int i=0; i<ads.Count; i++)
+        {
+            //EVS373.PakClassified.WebUI.Models.UserModel use = adv.PostedBy;
+            
+
+    <section class="col-xs-12 col-sm-6 col-md-12">
+        <div class="row">
+            <p>@topcats[i] --> @cats[i] </p>
+        </div>
+        <article class="search-result row" style="min-height:20rem; max-height:20rem; margin-bottom:40px">
+            <div class="col-xs-12 col-sm-12 col-md-3">
+                <a class="thumbnail" ><img class="card-img-top h-100" style="max-height: 20rem; object-fit:contain; border:1px groove; border-color:black" src="data:image/jpg;base64,@ads[i].Images.First()" alt="~/images/others/adv_none.jpg"></a>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-2" style="padding-top:100px">
+                <ul class="meta-search">
+                    <li><i class="glyphicon glyphicon-calendar"></i> <span>@ads[i].StartsOn.Date</span></li>
+                    <li><i class="glyphicon glyphicon-time"></i> <span>Rs.@ads[i].Price</span></li>
+                    <li><i class="glyphicon glyphicon-tags"></i> <span>@names[i]</span></li>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-7 excerpet" style="padding-top:100px">
+                <h3><a asp-action="details" asp-controller="advertizements" asp-route-id="@ads[i].Id">@ads[i].Name</a></h3>
+                <p>@ads[i].Description</p>
+                <span class="plus"><a href="#" title="Lorem ipsum"><i class="glyphicon glyphicon-plus"></i></a></span>
+            </div>
+            <span class="clearfix borda"></span>
+        </article>
+
+
+
+    </section>
+        }
+    </div>
+
+
+
+    @*<div>
+
+        <div class="row mt-3 ml-2 mr-2">
+            <div class="card-deck">
+                @foreach (var adv in ads)
+                {
+
+                    <div class="advsum col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-3">
+                        <a asp-action="details" asp-controller="advertizements" asp-route-id="@adv.Id" class="lnk-advdetails" title="@adv.Name">
+
+
+                            <div id="adcard" class="card" style="min-height:100%; box-shadow:10px 10px black">
+                                <img class="card-img-top h-100" style="max-height: 20rem; object-fit:contain; border:1px groove; border-color:black" src="data:image/jpg;base64,@adv.Images.First()" alt="~/images/others/adv_none.jpg">
+                                <div class="card-body text-dark">
+                                    <h4 class="card-title fa fa-dollar-sign">@adv.Price</h4>
+                                    <p class="card-text text-truncate">@adv.Name</p>
+                                </div>
+                            </div>
+
+
+
+                        </a>
+                    </div>
+
+                }
+            </div>
+        </div>
+
+    </div>*@
