@@ -1,0 +1,185 @@
+﻿@model SearchModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_OthersLayout.cshtml";
+
+
+    List<EVS373.PakClassified.Advertizement> latestAds = (List<EVS373.PakClassified.Advertizement>)ViewData["LatestApprovedAds"];
+    List<EVS373.PakClassified.Advertizement> mylist = new List<EVS373.PakClassified.Advertizement>();
+
+}
+
+@{
+    User currentUser = Context.Session.Get<User>(Constants.CURRENT_USER);
+    string img = "0";
+    if (currentUser.Image != null)
+    {
+        img = Convert.ToBase64String(currentUser.Image);
+    }
+
+    List<EVS373.PakClassified.AdvertizementCategory> cats = (List<EVS373.PakClassified.AdvertizementCategory>)ViewData["Categories"];
+    List<EVS373.PakClassified.AdvertizementCategory> subcats = (List<EVS373.PakClassified.AdvertizementCategory>)ViewData["SubCategories"];
+
+}
+<style>
+    .abc {
+        background-image: url('/./img/back.jpg');
+        background-repeat: no-repeat;
+        background-position: center;
+        position: relative;
+    }
+
+    .myimg {
+        max-height: 300px;
+    }
+
+        .myimg img {
+            object-fit: contain;
+        }
+</style>
+<!-- Hero Section Begin -->
+<section class="hero-section" style="margin-bottom:50px">
+    <div class="hero-items owl-carousel">
+        <div class="single-hero-items set-bg" data-setbg="/./img/hero-5.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <h1>PakClassifieds</h1>
+                        <p style="color:white">
+                           Everything you need.
+                        </p>
+                        <a href="#" class="primary-btn">Shop Now</a>
+                    </div>
+                </div>
+                <div class="off-card">
+                    <h2><span><i class="fa fa-tags" style="font-size: xxx-large"></i></span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="single-hero-items set-bg" data-setbg="/./img/hero-6.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <h1>PakClassifieds</h1>
+                        <p>
+                            Everything you need.
+                        </p>
+                        <a asp-controller="home" asp-action="nav" class="primary-btn">Shop Now</a>
+                    </div>
+                </div>
+                <div class="off-card">
+                    <h2><span><i class="fa fa-tags" style="font-size: xxx-large"></i></span></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@{ int count = 1;}
+@foreach (var item in cats)
+{
+    if (count % 2 == 0)
+    {
+        <section class="man-banner spad">
+            <div class="container-fluid">
+                <div class="row d-flex align-items-center">
+
+                    <div class="col-lg-8">
+
+                                <div class="product-slider owl-carousel">
+                                    @foreach (var ad in latestAds)
+                                    {
+                                        if (ad.Category.Parent.Name == item.Name)
+                                        {
+                                            <div class="product-item">
+                                                <div class="pi-pic">
+                                                    <div class="myimg">
+                                                        <img src="data:image/jpg;base64,@Convert.ToBase64String(ad.Images.FirstOrDefault().Content)" alt="">
+                                                    </div>
+
+                                                    <ul>
+                                                        <li class="quick-view"><a asp-action="details" asp-controller="advertizements" asp-route-id="@ad.Id">+ Quick View</a></li>
+
+                                                    </ul>
+                                                </div>
+                                                <div class="pi-text">
+                                                    <div class="catagory-name">@ad.Category.Name</div>
+                                                    <a href="#">
+                                                        <h5>@ad.Name</h5>
+                                                    </a>
+                                                    <div class="product-price">
+                                                        Rs.@ad.Price
+                                                      </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+
+
+                                </div>
+
+
+                    </div>
+                    <div class="col-lg-3  offset-lg-1">
+                        @*<div class="product-large set-bg" data-setbg="~/img/products/back.jpg">*@
+                        <div class="product-large abc">
+                            <h2>@item.Name</h2>
+                            <a asp-controller="Home" asp-action="Nav" asp-route-cname="@item.Name">Discover More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    }
+    else
+    {
+        <section class="women-banner spad">
+            <div class="container-fluid">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-3">
+                        @*<div class="product-large set-bg" data-setbg="~/img/products/back.jpg">*@
+                        <div class="product-large abc">
+                            <h2>@item.Name</h2>
+                            <a asp-controller="Home" asp-action="Nav" asp-route-cname="@item.Name">Discover More</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 offset-lg-1">
+                        <div class="product-slider owl-carousel">
+                            @foreach (var ad in latestAds)
+                            {
+                                if (ad.Category.Parent.Name == item.Name)
+                                {
+                                    <div class="product-item">
+                                        <div class="pi-pic">
+                                            <div class="myimg">
+                                                <img src="data:image/jpg;base64,@Convert.ToBase64String(ad.Images.FirstOrDefault().Content)" alt="">
+                                            </div>
+                                            <ul>
+                                                <li class="quick-view"><a class="myquick" data-index="@ad.Id" href="javascript:void(0)" @*asp-action="details" asp-controller="advertizements" asp-route-id="@ad.Id"*@>+ Quick View</a></li>
+                                                 </ul>
+                                        </div>
+                                        <div class="pi-text">
+                                            <div class="catagory-name">@ad.Category.Name</div>
+                                            <a href="#">
+                                                <h5>@ad.Name</h5>
+                                            </a>
+                                            <div class="product-price">
+                                               Rs.@ad.Price
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    }
+    count++;
+}
+
+

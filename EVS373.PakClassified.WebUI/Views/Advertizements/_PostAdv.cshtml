@@ -1,0 +1,197 @@
+﻿@model AdvertizementModel
+
+
+    <form id="postadvform" asp-action="postadv" asp-controller="advertizements" method="post" enctype="multipart/form-data">
+        <ul class="nav nav-tabs">
+            <li class="nav-item"> <a class="nav-link active" href="#general" data-toggle="tab">General</a></li>
+            <li class="nav-item"> <a class="nav-link" href="#description" data-toggle="tab">Description</a></li>
+            <li class="nav-item"> <a class="nav-link" href="#images" data-toggle="tab">Images</a> </li>
+        </ul>
+
+        <div class="tab-content" style="min-height:360px" >
+            <div id="general" class="tab-pane active mytab-pane">
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="input-group">
+                                <span class="input-group-prepend">
+                                    <label class="input-group-text"><i class="fa fa-map-marker"></i></label>
+                                </span>
+                                <select id="countriesddl" class="form-control" asp-items="@Model.Countries">
+                                </select>
+                            </div>
+                        </div>
+                        <div id="div4cities" class="col">
+                            <div class="input-group">
+                                <span class="input-group-prepend">
+                                    <label class="input-group-text"><i class="fa fa-map-marker"></i></label>
+                                </span>
+                                <select id="citiesddl" class="form-control" asp-items="@Model.Cities">
+                                    <option value="0">- City -</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="input-group">
+                                <span class="input-group-prepend">
+                                    <label class="input-group-text"><i class="fa fa-tags"></i></label>
+                                </span>
+                                <select id="categoriesddl" class="form-control" asp-items="@Model.TopLevelCategories">
+                                </select>
+                            </div>
+                        </div>
+                        <div id="div4subcategories" class="col">
+                            <div class="input-group">
+                                <span class="input-group-prepend">
+                                    <label class="input-group-text"><i class="fa fa-tags"></i></label>
+                                </span>
+                                <select id="subcategoriesddl" class="form-control">
+                                    <option value="0">- Sub Category -</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-prepend">
+                            <label class="input-group-text"><i class="fa fa-edit"></i></label>
+                        </span>
+                        <input type="text" class="form-control" asp-for="Name" placeholder="Name" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group p-0 col-4">
+                        <span class="input-group-prepend">
+                            <label class="input-group-text"><strong>Rs.</strong></label>
+                        </span>
+                        <input type="number" min="0" step="100" class="form-control" asp-for="Price" placeholder="Price" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="input-group">
+                                <span class="input-group-prepend">
+                                    <label class="input-group-text"><i class="fa fa-calendar"></i></label>
+                                </span>
+                                <input type="date" class="form-control" asp-for="StartsOn"   />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="input-group">
+                                <span class="input-group-prepend">
+                                    <label class="input-group-text"><i class="fa fa-calendar"></i></label>
+                                </span>
+
+                                <input type="date" class="form-control" asp-for="EndsOn" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    @foreach (var t in Model.Types)
+                    {
+                        <div class="form-check form-check-inline">
+                            <label><input name="advtype" type="radio" value="@t.Value" /> @t.Text</label>
+                        </div>
+                    }
+                </div>
+
+            </div>
+            <div id="description" class="tab-pane mytab-pane">
+                <div class="form-group">
+                    <textarea asp-for="@Model.Description" class="form-control" rows="12"></textarea>
+                </div>
+            </div>
+            <div id="images" class="tab-pane mytab-pane">
+                <div class="form-group">
+                    <table class="table" >
+                        <thead>
+                            <tr class="d-flex">
+                                <th class="col-12" >
+                                    <button id="btnphadd" type="button" class="btn btn-primary btn-sm dg-btnadd"> <i class="fa fa-plus"></i> Add</button>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="phtablbody">
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-arrow-circle-right"></i>  Add Advertizement
+            </button>
+        </div>
+    </form>
+
+    <script>
+        $("#lnkpostadv").click(function (event) {
+            event.preventDefault();
+            var url = $(this).attr("href");
+            $.ajax(
+                {
+                    url: url
+                }
+            ).done(function (postadvform) {
+                $("#advdialog-body").html(postadvform);
+                $("#advdialog").modal();
+
+                $("#countriesddl").change(function () {
+                    var countryId = $(this).val();
+                    $.ajax(
+                        {
+                            url: "/home/citiesddl/" + countryId
+                        }
+                    ).done(function (citiesresult) {
+                        $("#div4cities").html(citiesresult);
+                    });
+                });
+
+                $("#categoriesddl").change(function () {
+                    var categoryId = $(this).val();
+                    $.ajax(
+                        {
+                            url: "/home/subcategoriesddl/" + categoryId
+                        }
+                    ).done(function (subcategoriesresult) {
+                        $("#div4subcategories").html(subcategoriesresult);
+                    });
+                });
+
+                var phcounter = 0;
+                //add and remove controls for images
+                $("#btnphadd").click(function () {
+                    phcounter++;
+                    var temp = "<tr class='photorow d-flex'>"
+                        + "<td class='col-5'>"
+                        + "<input name='phcaption" + phcounter + "' type='text' class='form-control' placeholder='Caption' />"
+                        + "</td>"
+                        + "<td class='col-6'>"
+                        + "    <input name='photo" + phcounter + "' type='file' />"
+                        + "</td>"
+                        + "<td class='col-1' style='text-align:right' >"
+                        + "    <button type='button' class='btn btn-danger btn-sm btn-phremove'> <i class='fa fa-trash'></i></button>"
+                        + "</td>"
+                        + "</tr>";
+                    $("#phtablbody").append(temp);
+                    $(".btn-phremove").click(function () {
+                        $(this).parents(".photorow").remove();
+                    });
+                });
+
+            });
+        });
+    </script>
+
+
